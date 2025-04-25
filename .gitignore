@@ -1,0 +1,11 @@
+target/
+.vscode/
+log/
+logs/
+*.log
+*.tmp
+*.temp
+*.jar
+*.war
+*.nar
+*.ear

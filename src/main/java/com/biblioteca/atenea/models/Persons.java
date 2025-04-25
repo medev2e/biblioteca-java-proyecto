@@ -4,17 +4,17 @@ public class Persons {
     private String name;
     private String middleName;
     private String lastName;
-    private String idCard;
+    private String idNumber;
     // private int age;
 
     public Persons() {
     }
 
-    public Persons(String name, String middleName, String lastName, String idCard) {
+    public Persons(String name, String middleName, String lastName, String idNumber) {
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.idCard = idCard;
+        this.idNumber = idNumber;
     }
 
     public String getName() {
@@ -41,11 +41,11 @@ public class Persons {
         this.lastName = lastName;
     }
 
-    public String getIdCard() {
-        return idCard;
+    public String getIdNumber() {
+        return idNumber;
     }
 
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
     }
 }

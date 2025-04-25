@@ -1,7 +1,14 @@
 target/
+.idea/
+.settings/
+.classpath
+.project
 .vscode/
 log/
 logs/
+
+*.class
+*.iml
 *.log
 *.tmp
 *.temp
@@ -9,3 +16,10 @@ logs/
 *.war
 *.nar
 *.ear
+
+
+var/db/*
+!var/db/.gitkeep
+
+.DS_Store
+Thumbs.db

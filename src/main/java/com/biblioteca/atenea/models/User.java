@@ -1,17 +1,21 @@
 package com.biblioteca.atenea.models;
 
-public class Users extends Persons {
+public class User extends Person {
 
     private String email;
     private String adress;
-    private int phoneNumber;
+    private long phoneNumber;
 
-    public Users() {
+    public User() {
+        super();
+        this.role = "USER";
     }
 
-    public Users(String name, String middleName, String lastName, String idCard, String email, String adress,
+    public User(String name, String middleName, String lastName, String idNumber, String email,
+            String adress,
             int phoneNumber) {
-        super(name, middleName, lastName, idCard);
+        super(name, middleName, lastName, idNumber);
+        this.role = "USER";
         this.email = email;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
@@ -33,11 +37,11 @@ public class Users extends Persons {
         this.adress = adress;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }

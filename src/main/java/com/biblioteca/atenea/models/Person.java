@@ -1,20 +1,34 @@
 package com.biblioteca.atenea.models;
 
-public class Persons {
+import java.util.UUID;
+
+public class Person {
+    private final String id;
+    protected String role;
     private String name;
     private String middleName;
     private String lastName;
     private String idNumber;
     // private int age;
 
-    public Persons() {
+    public Person() {
+        this.id = UUID.randomUUID().toString();
     }
 
-    public Persons(String name, String middleName, String lastName, String idNumber) {
+    public Person(String name, String middleName, String lastName, String idNumber) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
         this.idNumber = idNumber;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public String getName() {

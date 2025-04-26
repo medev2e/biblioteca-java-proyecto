@@ -12,9 +12,13 @@ public class DatabaseConfig {
     public static final String DB_DIRECTORY = "var/db";
     public static final String DB_BOOKS = "books.db";
     public static final String DB_USERS = "users.db";
+    public static final String DB_LIBRARIANS = "librarians.db";
+    public static final String DB_ADMINS = "admins.db";
 
     private static final String BOOKS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_BOOKS;
     private static final String USERS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_USERS;
+    private static final String LIBRARIANS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_LIBRARIANS;
+    private static final String ADMINS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_ADMINS;
 
     private static void createDatabaseDirectory() {
         try {
@@ -35,6 +39,16 @@ public class DatabaseConfig {
     public static Connection getUsersConnection() throws SQLException {
         createDatabaseDirectory();
         return DriverManager.getConnection(USERS_URL);
+    }
+
+    public static Connection getAdminsConnection() throws SQLException {
+        createDatabaseDirectory();
+        return DriverManager.getConnection(ADMINS_URL);
+    }
+
+    public static Connection getLibrariansConnection() throws SQLException {
+        createDatabaseDirectory();
+        return DriverManager.getConnection(LIBRARIANS_URL);
     }
 
     private static void initBooksDatabase() {
@@ -94,12 +108,31 @@ public class DatabaseConfig {
                     );
                 """;
 
-        try (Connection conn = getUsersConnection();
+        try (Connection conn = getAdminsConnection();
                 Statement stmt = conn.createStatement()) {
             stmt.execute(createAdminsTable);
-            System.out.println("Base [Usuarios] inicializa correctamente");
+            System.out.println("Base [Admins] inicializa correctamente");
         } catch (SQLException error) {
-            System.err.println("Error al inicializar base [Usuarios]: " + error.getMessage());
+            System.err.println("Error al inicializar base [Admins]: " + error.getMessage());
+            throw new RuntimeException(error);
+        }
+    }
+
+    private static void initLibrariansDatabase() {
+        String createAdminsTable = """
+                    CREATE TABLE IF NOT EXISTS users (
+                        id TEXT PRIMARY KEY,
+                        librarian_user TEXT UNIQUE NOT NULL
+                        hashed_password TEXT NOT NULL
+                    );
+                """;
+
+        try (Connection conn = getLibrariansConnection();
+                Statement stmt = conn.createStatement()) {
+            stmt.execute(createAdminsTable);
+            System.out.println("Base [Encargados] inicializa correctamente");
+        } catch (SQLException error) {
+            System.err.println("Error al inicializar base [Encargados]: " + error.getMessage());
             throw new RuntimeException(error);
         }
     }
@@ -108,6 +141,7 @@ public class DatabaseConfig {
         initBooksDatabase();
         initUsersDatabase();
         initAdminsDatabase();
+        initLibrariansDatabase();
     }
 
 }

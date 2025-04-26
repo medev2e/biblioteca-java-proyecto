@@ -1,10 +1,10 @@
 package com.biblioteca.atenea.models;
 
-import org.mindrot.jbcrypt.BCrypt;
+import com.biblioteca.atenea.utils.PasswordHasher;
 
 public class Admin extends Person {
     private String adminUser;
-    private String hashedPassword;
+    private String adminPassword;
 
     public Admin() {
         super();
@@ -16,7 +16,11 @@ public class Admin extends Person {
         super(name, middleName, lastName, idNumber);
         this.role = "ADMIN";
         this.adminUser = adminUser;
-        setHashedPassword(plainPassword);
+        this.adminPassword = PasswordHasher.hashPassword(plainPassword);
+    }
+
+    public void setAdminPassword(String plainPassword) {
+        this.adminPassword = PasswordHasher.hashPassword(plainPassword);
     }
 
     public String getAdminUser() {
@@ -26,13 +30,4 @@ public class Admin extends Person {
     public void setAdminUser(String adminUser) {
         this.adminUser = adminUser;
     }
-
-    public boolean checkPassword(String plainPassword) {
-        return BCrypt.checkpw(plainPassword, this.hashedPassword);
-    }
-
-    public void setHashedPassword(String plainPassword) {
-        this.hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
-    }
-
 }

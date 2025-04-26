@@ -1,4 +1,4 @@
-package com.biblioteca.atenea.config;
+package com.biblioteca.atenea.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,15 +9,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DatabaseConfig {
-    public static final String DB_DIRECTORY = "var/db";
+    public static final String DB_DIRECTORY = "src/main/resources/database/db";
     public static final String DB_BOOKS = "books.db";
     public static final String DB_USERS = "users.db";
-    public static final String DB_LIBRARIANS = "librarians.db";
+    public static final String DB_EMPLOYEES = "employees.db";
     public static final String DB_ADMINS = "admins.db";
 
     private static final String BOOKS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_BOOKS;
     private static final String USERS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_USERS;
-    private static final String LIBRARIANS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_LIBRARIANS;
+    private static final String EMPLOYEES_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_EMPLOYEES;
     private static final String ADMINS_URL = "jdbc:sqlite:" + DB_DIRECTORY + "/" + DB_ADMINS;
 
     private static void createDatabaseDirectory() {
@@ -46,9 +46,9 @@ public class DatabaseConfig {
         return DriverManager.getConnection(ADMINS_URL);
     }
 
-    public static Connection getLibrariansConnection() throws SQLException {
+    public static Connection getEmployeesConnection() throws SQLException {
         createDatabaseDirectory();
-        return DriverManager.getConnection(LIBRARIANS_URL);
+        return DriverManager.getConnection(EMPLOYEES_URL);
     }
 
     private static void initBooksDatabase() {
@@ -104,7 +104,7 @@ public class DatabaseConfig {
                     CREATE TABLE IF NOT EXISTS users (
                         id TEXT PRIMARY KEY,
                         admin_user TEXT UNIQUE NOT NULL
-                        hashed_password TEXT NOT NULL
+                        admin_password TEXT NOT NULL
                     );
                 """;
 
@@ -118,21 +118,21 @@ public class DatabaseConfig {
         }
     }
 
-    private static void initLibrariansDatabase() {
+    private static void initEmployeesDatabase() {
         String createAdminsTable = """
                     CREATE TABLE IF NOT EXISTS users (
                         id TEXT PRIMARY KEY,
-                        librarian_user TEXT UNIQUE NOT NULL
-                        hashed_password TEXT NOT NULL
+                        employee_user TEXT UNIQUE NOT NULL
+                        employee_password TEXT NOT NULL
                     );
                 """;
 
-        try (Connection conn = getLibrariansConnection();
+        try (Connection conn = getEmployeesConnection();
                 Statement stmt = conn.createStatement()) {
             stmt.execute(createAdminsTable);
-            System.out.println("Base [Encargados] inicializa correctamente");
+            System.out.println("Base [Empleado] inicializa correctamente");
         } catch (SQLException error) {
-            System.err.println("Error al inicializar base [Encargados]: " + error.getMessage());
+            System.err.println("Error al inicializar base [Empleado]: " + error.getMessage());
             throw new RuntimeException(error);
         }
     }
@@ -141,7 +141,7 @@ public class DatabaseConfig {
         initBooksDatabase();
         initUsersDatabase();
         initAdminsDatabase();
-        initLibrariansDatabase();
+        initEmployeesDatabase();
     }
 
 }

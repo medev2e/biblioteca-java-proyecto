@@ -1,10 +1,8 @@
-package com.biblioteca.atenea.models;
+package com.biblioteca.atenea.models.base;
 
-import java.util.UUID;
+public class BookModel {
 
-public class Book {
-
-    private final String id;
+    private String systemId;
     private String title;
     private String author;
     private String publisher;
@@ -12,14 +10,16 @@ public class Book {
     private String genre;
     private String isbnNumber;
     private String edition;
+    private boolean available;
 
-    public Book() {
-        this.id = UUID.randomUUID().toString();
+    public BookModel() {
     }
 
-    public Book(String title, String author, String publisher, String publicationYear, String genre, String isbnNumber,
-            String edition) {
-        this.id = UUID.randomUUID().toString();
+    public BookModel(String systemId, String title, String author, String publisher, String publicationYear,
+            String genre,
+            String isbnNumber,
+            String edition, boolean available) {
+        this.systemId = systemId;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
@@ -27,10 +27,18 @@ public class Book {
         this.genre = genre;
         this.isbnNumber = isbnNumber;
         this.edition = edition;
+        this.available = available;
     }
 
-    public String getId() {
-        return id;
+    public BookModel(String systemId, String title, String author, String publisher, String publicationYear,
+            String genre,
+            String isbnNumber,
+            String edition) {
+        this(systemId, title, author, publisher, publicationYear, genre, isbnNumber, edition, true);
+    }
+
+    public String getSystemId() {
+        return systemId;
     }
 
     public String getTitle() {
@@ -87,6 +95,14 @@ public class Book {
 
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    public boolean getAvailable() {
+        return this.available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
 }

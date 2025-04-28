@@ -4,8 +4,8 @@ import com.biblioteca.atenea.models.base.PersonModel;
 
 public class EmployeeModel extends PersonModel {
 
-    private String employeeUsername;
-    private String employeePassword;
+    private String username;
+    private String password;
 
     public EmployeeModel() {
         super();
@@ -13,22 +13,22 @@ public class EmployeeModel extends PersonModel {
 
     public EmployeeModel(String systemId, String name, String middleName, String lastName, String nationalId,
             String email, String address, long phoneNumber,
-            String employeeUsername,
-            String employeePassword) {
-        super(systemId, name, middleName, lastName, nationalId, email, address, phoneNumber);
-        this.employeeUsername = employeeUsername;
-        this.employeePassword = employeePassword;
+            String username,
+            String password) {
+        super(systemId, name, middleName, lastName);
+        this.username = username;
+        this.password = password;
     }
 
-    public void setAdminPassword(String employeePassword) {
-        this.employeePassword = employeePassword;
+    public void setAdminPassword(String password) {
+        this.password = password;
     }
 
-    public String getEmployeeUsername() {
-        return employeeUsername;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmployeeUsername(String employeeUsername) {
-        this.employeeUsername = employeeUsername;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

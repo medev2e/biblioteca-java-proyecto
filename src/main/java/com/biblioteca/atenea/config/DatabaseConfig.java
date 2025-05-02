@@ -70,13 +70,13 @@ public class DatabaseConfig {
 
     private static void createEmployeesTable() {
         String sql = """
-                    CREATE TABLE IF NOT EXISTS users (
+                    CREATE TABLE IF NOT EXISTS employees (
                         system_id TEXT PRIMARY KEY,
                         name TEXT NOT NULL,
                         middle_name TEXT,
                         last_name TEXT NOT NULL,
-                        username TEXT NOT FULL,
-                        password TEXT NO FULL,
+                        username TEXT NOT NULL,
+                        password TEXT NOT NULL
                     );
                 """;
         createTable(sql);
@@ -102,10 +102,11 @@ public class DatabaseConfig {
     private static void createPenaltiesTable() {
         String sql = """
                     CREATE TABLE IF NOT EXISTS penalties (
+                        user_id TEXT NOT NULL,
                         start_date TEXT NOT NULL,
                         end_date TEXT NOT NULL,
                         reason TEXT NOT NULL,
-                        additional_note TEXT;
+                        additional_note TEXT,
                         FOREIGN KEY (user_id) REFERENCES users(system_id)
                     );
                 """;

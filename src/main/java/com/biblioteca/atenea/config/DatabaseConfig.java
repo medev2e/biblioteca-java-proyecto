@@ -47,7 +47,7 @@ public class DatabaseConfig {
     private static void createTable(String sql) {
         try (Connection conn = getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.execute();
+            ps.executeUpdate();
         } catch (Exception e) {
         }
     }

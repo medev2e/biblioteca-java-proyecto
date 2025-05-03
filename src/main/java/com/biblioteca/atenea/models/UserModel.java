@@ -3,6 +3,7 @@ package com.biblioteca.atenea.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.biblioteca.atenea.models.base.LoansModel;
 import com.biblioteca.atenea.models.base.PenaltyModel;
 import com.biblioteca.atenea.models.base.PersonModel;
 
@@ -12,11 +13,13 @@ public class UserModel extends PersonModel {
     private String email;
     private String address;
     private long phoneNumber;
+    private List<LoansModel> loans;
     private List<PenaltyModel> penalties;
 
     public UserModel() {
         super();
         this.penalties = new ArrayList<>();
+        this.loans = new ArrayList<>();
     }
 
     public UserModel(String systemId, String name, String middleName, String lastName, String nationalId, String email,
@@ -28,6 +31,7 @@ public class UserModel extends PersonModel {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.penalties = new ArrayList<>();
+        this.loans = new ArrayList<>();
     }
 
     public String getNationalId() {
@@ -72,5 +76,13 @@ public class UserModel extends PersonModel {
 
     public void removePenalty(PenaltyModel penalty) {
         this.penalties.remove(penalty);
+    }
+
+    public void addLoans(LoansModel book) {
+        this.loans.add(book);
+    }
+
+    public void removeLoans(LoansModel book) {
+        this.loans.remove(book);
     }
 }

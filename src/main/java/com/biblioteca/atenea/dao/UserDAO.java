@@ -11,7 +11,7 @@ import com.biblioteca.atenea.models.UserModel;
 
 public class UserDAO {
 
-    public void createUser(UserModel user) {
+    public void insertUser(UserModel user) {
 
         String sql = """
                 INSERT INTO users (system_id, name, middle_name, last_name, national_id, email, address, phone_number)
@@ -33,13 +33,13 @@ public class UserDAO {
         }
     }
 
-    public List<UserModel> getUsersByName(String name) {
+    public List<UserModel> searchUsersByName(String name) {
         String sql = "SELECT * FROM users WHERE name LIKE ?";
         List<UserModel> users = new ArrayList<>();
 
         try (Connection conn = DatabaseConfig.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, name);
+            ps.setString(1, "%" + name + "%");
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     UserModel user = new UserModel(

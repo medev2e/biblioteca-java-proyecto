@@ -11,8 +11,7 @@ public class EmployeeModel extends PersonModel {
         super();
     }
 
-    public EmployeeModel(String systemId, String name, String middleName, String lastName, String nationalId,
-            String email, String address, long phoneNumber,
+    public EmployeeModel(String systemId, String name, String middleName, String lastName,
             String username,
             String password) {
         super(systemId, name, middleName, lastName);
@@ -20,7 +19,11 @@ public class EmployeeModel extends PersonModel {
         this.password = password;
     }
 
-    public void setAdminPassword(String password) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 

@@ -99,6 +99,21 @@ public class DatabaseConfig {
         createTable(sql);
     }
 
+    private static void createLoansTable() {
+        String sql = """
+                    CREATE TABLE IF NOT EXISTS loans (
+                        loan_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id TEXT NOT NULL,
+                        book_id TEXT NOT NULL,
+                        loan_date TEXT NOT NULL,
+                        return_date TEXT,
+                        FOREIGN KEY (user_id) REFERENCES users(system_id),
+                        FOREIGN KEY (book_id) REFERENCES books(system_id)
+                    );
+                """;
+        createTable(sql);
+    }
+
     private static void createPenaltiesTable() {
         String sql = """
                     CREATE TABLE IF NOT EXISTS penalties (
@@ -118,5 +133,6 @@ public class DatabaseConfig {
         createEmployeesTable();
         createPenaltiesTable();
         createUsersTable();
+        createLoansTable();
     }
 }

@@ -32,4 +32,36 @@ public class PenaltyModel {
     public void setPaid(boolean paid) {
         isPaid = paid;
     }
+
+    public LocalDate getStartPenalty() {
+        return startPenalty;
+    }
+
+    public void setStartPenalty(LocalDate startPenalty) {
+        this.startPenalty = startPenalty;
+    }
+
+    public LocalDate getEndPenalty() {
+        return endPenalty;
+    }
+
+    public void setEndPenalty(LocalDate endPenalty) {
+        this.endPenalty = endPenalty;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getAdditional_note() {
+        return additional_note;
+    }
+
+    public void setAdditional_note(String additional_note) {
+        this.additional_note = additional_note;
+    }
 }

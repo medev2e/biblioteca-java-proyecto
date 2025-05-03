@@ -18,7 +18,6 @@ logs/
 *.ear
 
 var/db
-!var/db/.gitkeep
 
 .DS_Store
 Thumbs.db

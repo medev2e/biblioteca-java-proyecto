@@ -28,6 +28,14 @@ public class BookModel {
         this.available = available;
     }
 
+    public String getIsbnNumber() {
+        return isbnNumber;
+    }
+
+    public void setIsbnNumber(String isbnNumber) {
+        this.isbnNumber = isbnNumber;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -66,14 +74,6 @@ public class BookModel {
 
     public void setGenre(String genre) {
         this.genre = genre;
-    }
-
-    public String getIsbnNumber() {
-        return isbnNumber;
-    }
-
-    public void setIsbnNumber(String isbnNumber) {
-        this.isbnNumber = isbnNumber;
     }
 
     public String getEdition() {

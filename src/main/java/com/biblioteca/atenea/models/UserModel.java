@@ -1,11 +1,8 @@
 package com.biblioteca.atenea.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.biblioteca.atenea.models.base.LoansModel;
-import com.biblioteca.atenea.models.base.PenaltyModel;
 import com.biblioteca.atenea.models.base.PersonModel;
+import com.biblioteca.atenea.models.base.PenaltyModel;
+import com.biblioteca.atenea.models.base.LoansModel;
 
 public class UserModel extends PersonModel {
 
@@ -13,25 +10,22 @@ public class UserModel extends PersonModel {
     private String email;
     private String address;
     private long phoneNumber;
-    private List<LoansModel> loans;
-    private List<PenaltyModel> penalties;
+    private PenaltyModel penalties = new PenaltyModel();
+    private LoansModel loans = new LoansModel();
 
     public UserModel() {
         super();
-        this.penalties = new ArrayList<>();
-        this.loans = new ArrayList<>();
     }
 
-    public UserModel(String systemId, String name, String middleName, String lastName, String nationalId, String email,
+    public UserModel(String name, String middleName, String lastName, String surName,
+            String nationalId, String email,
             String address,
             long phoneNumber) {
-        super(systemId, name, middleName, lastName);
+        super(name, middleName, lastName, surName);
         this.nationalId = nationalId;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.penalties = new ArrayList<>();
-        this.loans = new ArrayList<>();
     }
 
     public String getNationalId() {
@@ -66,23 +60,19 @@ public class UserModel extends PersonModel {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<PenaltyModel> getPenalties() {
+    public PenaltyModel getPenalties() {
         return penalties;
     }
 
-    public void addPenalty(PenaltyModel penalty) {
-        this.penalties.add(penalty);
+    public void setPenalty(PenaltyModel penalty) {
+        this.penalties = penalty;
     }
 
-    public void removePenalty(PenaltyModel penalty) {
-        this.penalties.remove(penalty);
+    public LoansModel getLoans() {
+        return loans;
     }
 
-    public void addLoans(LoansModel book) {
-        this.loans.add(book);
-    }
-
-    public void removeLoans(LoansModel book) {
-        this.loans.remove(book);
+    public void setLoan(LoansModel loans) {
+        this.loans = loans;
     }
 }

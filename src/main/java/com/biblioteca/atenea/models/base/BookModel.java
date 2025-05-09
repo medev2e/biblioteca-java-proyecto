@@ -2,47 +2,34 @@ package com.biblioteca.atenea.models.base;
 
 public class BookModel {
 
-    private String systemId;
+    private String isbnNumber;
     private String title;
     private String author;
     private String publisher;
     private String publicationYear;
     private String genre;
-    private String isbnNumber;
     private String edition;
     private boolean available;
 
     public BookModel() {
     }
 
-    public BookModel(String systemId, String title, String author, String publisher, String publicationYear,
+    public BookModel(
+            String isbnNumber, String title, String author, String publisher, String publicationYear,
             String genre,
-            String isbnNumber,
             String edition, boolean available) {
-        this.systemId = systemId;
+        this.isbnNumber = isbnNumber;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.publicationYear = publicationYear;
         this.genre = genre;
-        this.isbnNumber = isbnNumber;
         this.edition = edition;
         this.available = available;
     }
 
-    public BookModel(String systemId, String title, String author, String publisher, String publicationYear,
-            String genre,
-            String isbnNumber,
-            String edition) {
-        this(systemId, title, author, publisher, publicationYear, genre, isbnNumber, edition, true);
-    }
-
-    public String getSystemId() {
-        return systemId;
-    }
-
     public String getTitle() {
-        return this.title;
+        return title;
     }
 
     public void setTitle(String title) {
@@ -50,7 +37,7 @@ public class BookModel {
     }
 
     public String getAuthor() {
-        return this.author;
+        return author;
     }
 
     public void setAuthor(String author) {
@@ -58,7 +45,7 @@ public class BookModel {
     }
 
     public String getPublisher() {
-        return this.publisher;
+        return publisher;
     }
 
     public void setPublisher(String publisher) {
@@ -66,7 +53,7 @@ public class BookModel {
     }
 
     public String getPublicationYear() {
-        return this.publicationYear;
+        return publicationYear;
     }
 
     public void setPublicationYear(String publicationYear) {
@@ -74,7 +61,7 @@ public class BookModel {
     }
 
     public String getGenre() {
-        return this.genre;
+        return genre;
     }
 
     public void setGenre(String genre) {
@@ -82,7 +69,7 @@ public class BookModel {
     }
 
     public String getIsbnNumber() {
-        return this.isbnNumber;
+        return isbnNumber;
     }
 
     public void setIsbnNumber(String isbnNumber) {
@@ -90,7 +77,7 @@ public class BookModel {
     }
 
     public String getEdition() {
-        return this.edition;
+        return edition;
     }
 
     public void setEdition(String edition) {
@@ -98,7 +85,7 @@ public class BookModel {
     }
 
     public boolean getAvailable() {
-        return this.available;
+        return available;
     }
 
     public void setAvailable(boolean available) {

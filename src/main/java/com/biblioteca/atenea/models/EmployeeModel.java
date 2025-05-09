@@ -1,6 +1,7 @@
 package com.biblioteca.atenea.models;
 
 import com.biblioteca.atenea.models.base.PersonModel;
+import com.biblioteca.atenea.utils.SecurityUtil;
 
 public class EmployeeModel extends PersonModel {
 
@@ -11,12 +12,12 @@ public class EmployeeModel extends PersonModel {
         super();
     }
 
-    public EmployeeModel(String systemId, String name, String middleName, String lastName,
+    public EmployeeModel(String name, String middleName, String lastName, String surName,
             String username,
             String password) {
-        super(systemId, name, middleName, lastName);
+        super(name, middleName, lastName, surName);
         this.username = username;
-        this.password = password;
+        this.password = SecurityUtil.hashPassword(password);
     }
 
     public String getPassword() {
@@ -24,7 +25,7 @@ public class EmployeeModel extends PersonModel {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = SecurityUtil.hashPassword(password);
     }
 
     public String getUsername() {

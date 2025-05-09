@@ -6,6 +6,7 @@ target/
 .vscode/
 log/
 logs/
+toadd.txt
 
 *.class
 *.iml

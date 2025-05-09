@@ -10,6 +10,10 @@ public class PenaltyModel {
     private String reason;
     private String additional_note;
 
+    public PenaltyModel() {
+
+    }
+
     public PenaltyModel(LocalDate startPenalty, LocalDate endPenalty, String reason, String additional_note) {
         this.startPenalty = startPenalty;
         this.endPenalty = endPenalty;

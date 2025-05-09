@@ -85,13 +85,12 @@ public class DatabaseConfig {
     private static void createBooksTable() {
         String sql = """
                     CREATE TABLE IF NOT EXISTS books (
-                        system_id TEXT PRIMARY KEY,
+                        isbn_number TEXT PRIMARY KEY,
                         title TEXT NOT NULL,
                         author TEXT NOT NULL,
                         publisher TEXT,
                         publication_year TEXT,
                         genre TEXT,
-                        isbn_number TEXT UNIQUE NOT NULL,
                         edition TEXT,
                         available NUMERIC NOT NULL
                     );
@@ -108,7 +107,7 @@ public class DatabaseConfig {
                         loan_date TEXT NOT NULL,
                         return_date TEXT,
                         FOREIGN KEY (user_id) REFERENCES users(system_id),
-                        FOREIGN KEY (book_id) REFERENCES books(system_id)
+                        FOREIGN KEY (book_id) REFERENCES books(isbn_number)
                     );
                 """;
         createTable(sql);

@@ -59,6 +59,7 @@ public class DatabaseConfig {
                         name TEXT NOT NULL,
                         middle_name TEXT,
                         last_name TEXT NOT NULL,
+                        sur_name TEXT NOT NULL,
                         national_id TEXT UNIQUE NOT NULL,
                         email TEXT UNIQUE NOT NULL,
                         address TEXT NOT NULL,
@@ -75,6 +76,7 @@ public class DatabaseConfig {
                         name TEXT NOT NULL,
                         middle_name TEXT,
                         last_name TEXT NOT NULL,
+                        sur_name TEXT NOT NULL,
                         username TEXT NOT NULL,
                         password TEXT NOT NULL
                     );

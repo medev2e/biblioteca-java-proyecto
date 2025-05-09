@@ -14,8 +14,8 @@ public class UserDAO {
     public void insertUser(UserModel user) {
 
         String sql = """
-                INSERT INTO users (system_id, name, middle_name, last_name, national_id, email, address, phone_number)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO users (system_id, name, middle_name, last_name, sur_name, national_id, email, address, phone_number)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """;
 
         try (Connection conn = DatabaseConfig.getLibraryConnection();
@@ -24,10 +24,11 @@ public class UserDAO {
             ps.setString(2, user.getName());
             ps.setString(3, user.getMiddleName());
             ps.setString(4, user.getLastName());
-            ps.setString(5, user.getNationalId());
-            ps.setString(6, user.getEmail());
-            ps.setString(7, user.getAddress());
-            ps.setLong(8, user.getPhoneNumber());
+            ps.setString(5, user.getSurName());
+            ps.setString(6, user.getNationalId());
+            ps.setString(7, user.getEmail());
+            ps.setString(8, user.getAddress());
+            ps.setLong(9, user.getPhoneNumber());
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -43,10 +44,10 @@ public class UserDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     UserModel user = new UserModel(
-                            rs.getString("system_id"),
                             rs.getString("name"),
                             rs.getString("middle_name"),
                             rs.getString("last_name"),
+                            rs.getString("sur_name"),
                             rs.getString("national_id"),
                             rs.getString("email"),
                             rs.getString("address"),
@@ -63,7 +64,7 @@ public class UserDAO {
     public void updateUser(UserModel user) {
         String sql = """
                 UPDATE users
-                SET name = ?, middle_name = ?, last_name = ?, national_id = ?, email = ?, address = ?, phone_number = ?
+                SET name = ?, middle_name = ?, last_name = ?, sur_name = ?, national_id = ?, email = ?, address = ?, phone_number = ?
                 WHERE system_id = ?
                 """;
         try (Connection conn = DatabaseConfig.getLibraryConnection();
@@ -71,11 +72,12 @@ public class UserDAO {
             ps.setString(1, user.getName());
             ps.setString(2, user.getMiddleName());
             ps.setString(3, user.getLastName());
-            ps.setString(4, user.getNationalId());
-            ps.setString(5, user.getEmail());
-            ps.setString(6, user.getAddress());
-            ps.setLong(7, user.getPhoneNumber());
-            ps.setString(8, user.getSystemId());
+            ps.setString(4, user.getSurName());
+            ps.setString(5, user.getNationalId());
+            ps.setString(6, user.getEmail());
+            ps.setString(7, user.getAddress());
+            ps.setLong(8, user.getPhoneNumber());
+            ps.setString(9, user.getSystemId());
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -91,7 +93,7 @@ public class UserDAO {
         }
     }
 
-    public List<UserModel> getAllUser() {
+    public List<UserModel> getAllUsers() {
         String sql = "SELECT * FROM users";
         List<UserModel> users = new ArrayList<>();
 
@@ -101,10 +103,10 @@ public class UserDAO {
 
             while (rs.next()) {
                 UserModel user = new UserModel(
-                        rs.getString("system_id"),
                         rs.getString("name"),
                         rs.getString("middle_name"),
                         rs.getString("last_name"),
+                        rs.getString("sur_name"),
                         rs.getString("national_id"),
                         rs.getString("email"),
                         rs.getString("address"),

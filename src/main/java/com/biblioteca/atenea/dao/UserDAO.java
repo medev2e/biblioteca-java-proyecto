@@ -3,8 +3,6 @@ package com.biblioteca.atenea.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.biblioteca.atenea.config.DatabaseConfig;
 import com.biblioteca.atenea.models.UserModel;
@@ -34,31 +32,21 @@ public class UserDAO {
         }
     }
 
-    public List<UserModel> searchUsersByName(String name) {
-        String sql = "SELECT * FROM users WHERE name LIKE ?";
-        List<UserModel> users = new ArrayList<>();
+    public ResultSet searchUsersByName(String name, int page, int pageSize) {
+        String sql = "SELECT * FROM users WHERE name LIKE ? LIMIT ? OFFSET ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = DatabaseConfig.getLibraryConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
             ps.setString(1, "%" + name + "%");
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    UserModel user = new UserModel(
-                            rs.getString("name"),
-                            rs.getString("middle_name"),
-                            rs.getString("last_name"),
-                            rs.getString("sur_name"),
-                            rs.getString("national_id"),
-                            rs.getString("email"),
-                            rs.getString("address"),
-                            rs.getLong("phone_number"));
-                    users.add(user);
-                }
-            }
-        } catch (Exception e) {
-        }
+            ps.setInt(2, pageSize);
+            ps.setInt(3, (page - 1) * pageSize);
 
-        return users;
+            return ps.executeQuery();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void updateUser(UserModel user) {
@@ -93,29 +81,22 @@ public class UserDAO {
         }
     }
 
-    public List<UserModel> getAllUsers() {
-        String sql = "SELECT * FROM users";
-        List<UserModel> users = new ArrayList<>();
+    public ResultSet searchUsers(String searchTerm, int page, int pageSize) {
+        String sql = "SELECT * FROM users WHERE name LIKE ? OR national_id LIKE ? OR email LIKE ? LIMIT ? OFFSET ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+        try {
+            Connection conn = DatabaseConfig.getLibraryConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
 
-            while (rs.next()) {
-                UserModel user = new UserModel(
-                        rs.getString("name"),
-                        rs.getString("middle_name"),
-                        rs.getString("last_name"),
-                        rs.getString("sur_name"),
-                        rs.getString("national_id"),
-                        rs.getString("email"),
-                        rs.getString("address"),
-                        rs.getLong("phone_number"));
-                users.add(user);
-            }
+            ps.setString(1, "%" + searchTerm + "%");
+            ps.setString(2, "%" + searchTerm + "%");
+            ps.setString(3, "%" + searchTerm + "%");
+            ps.setInt(4, pageSize);
+            ps.setInt(5, (page - 1) * pageSize);
+
+            return ps.executeQuery();
         } catch (Exception e) {
+            return null;
         }
-
-        return users;
     }
 }

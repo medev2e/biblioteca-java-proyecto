@@ -77,7 +77,7 @@ public class DatabaseConfig {
                         middle_name TEXT,
                         last_name TEXT NOT NULL,
                         sur_name TEXT NOT NULL,
-                        username TEXT NOT NULL,
+                        username TEXT UNIQUE NOT NULL,
                         password TEXT NOT NULL
                     );
                 """;
@@ -118,11 +118,14 @@ public class DatabaseConfig {
     private static void createPenaltiesTable() {
         String sql = """
                     CREATE TABLE IF NOT EXISTS penalties (
+                        penalty_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         user_id TEXT NOT NULL,
                         start_date TEXT NOT NULL,
                         end_date TEXT NOT NULL,
                         reason TEXT NOT NULL,
                         additional_note TEXT,
+                        penalty_amount NUMERIC NOT NULL,
+                        is_paid NUMERIC NOT NULL,
                         FOREIGN KEY (user_id) REFERENCES users(system_id)
                     );
                 """;

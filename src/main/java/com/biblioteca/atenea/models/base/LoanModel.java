@@ -2,25 +2,36 @@ package com.biblioteca.atenea.models.base;
 
 import java.time.LocalDate;
 
-public class LoansModel {
-    private BookModel book;
+public class LoanModel {
+    private String userId;
+    private String bookId;
     private LocalDate loanDate;
     private LocalDate returnDate;
 
-    public LoansModel() {
+    public LoanModel() {
     }
 
-    public LoansModel(LocalDate loanDate, LocalDate returnDate) {
+    public LoanModel(String userId, String bookId, LocalDate loanDate, LocalDate returnDate) {
+        this.userId = userId;
+        this.bookId = bookId;
         this.loanDate = loanDate;
         this.returnDate = returnDate;
     }
 
-    public BookModel getBook() {
-        return book;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setBook(BookModel book) {
-        this.book = book;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     public LocalDate getLoanDate() {

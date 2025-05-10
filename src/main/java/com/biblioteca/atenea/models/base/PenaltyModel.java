@@ -3,54 +3,51 @@ package com.biblioteca.atenea.models.base;
 import java.time.LocalDate;
 
 public class PenaltyModel {
+    private String userId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String reason;
+    private String additionalNotes;
     private double penaltyAmount;
     private boolean isPaid;
-    private LocalDate startPenalty;
-    private LocalDate endPenalty;
-    private String reason;
-    private String additional_note;
 
     public PenaltyModel() {
-
     }
 
-    public PenaltyModel(LocalDate startPenalty, LocalDate endPenalty, String reason, String additional_note) {
-        this.startPenalty = startPenalty;
-        this.endPenalty = endPenalty;
+    public PenaltyModel(String userId, LocalDate startDate, LocalDate endDate, String reason,
+            String additionalNotes,
+            double penaltyAmount, boolean isPaid) {
+        this.userId = userId;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.reason = reason;
-        this.additional_note = additional_note;
-    }
-
-    public double getPenaltyAmount() {
-        return penaltyAmount;
-    }
-
-    public void setPenaltyAmount(double penaltyAmount) {
+        this.additionalNotes = additionalNotes;
         this.penaltyAmount = penaltyAmount;
+        this.isPaid = isPaid;
     }
 
-    public boolean isPaid() {
-        return isPaid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public LocalDate getStartPenalty() {
-        return startPenalty;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStartPenalty(LocalDate startPenalty) {
-        this.startPenalty = startPenalty;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getEndPenalty() {
-        return endPenalty;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEndPenalty(LocalDate endPenalty) {
-        this.endPenalty = endPenalty;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public String getReason() {
@@ -61,11 +58,27 @@ public class PenaltyModel {
         this.reason = reason;
     }
 
-    public String getAdditional_note() {
-        return additional_note;
+    public String getAdditionalNotes() {
+        return additionalNotes;
     }
 
-    public void setAdditional_note(String additional_note) {
-        this.additional_note = additional_note;
+    public void setAdditionalNotes(String additionalNotes) {
+        this.additionalNotes = additionalNotes;
+    }
+
+    public double getPenaltyAmount() {
+        return penaltyAmount;
+    }
+
+    public void setPenaltyAmount(double penaltyAmount) {
+        this.penaltyAmount = penaltyAmount;
+    }
+
+    public boolean getIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(boolean paid) {
+        isPaid = paid;
     }
 }

@@ -3,8 +3,6 @@ package com.biblioteca.atenea.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.biblioteca.atenea.config.DatabaseConfig;
 import com.biblioteca.atenea.models.base.BookModel;
@@ -33,31 +31,21 @@ public class BookDAO {
         }
     }
 
-    public List<BookModel> searchBooksByTitle(String title) {
-        List<BookModel> books = new ArrayList<>();
-        String sql = "SELECT * FROM books WHERE title LIKE ?";
+    public ResultSet searchBooksByTitle(String title, int page, int pageSize) {
+        String sql = "SELECT * FROM books WHERE title LIKE ? LIMIT ? OFFSET ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = DatabaseConfig.getLibraryConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, "%" + title + "%");
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(2, pageSize);
+            ps.setInt(3, (page - 1) * pageSize);
 
-            while (rs.next()) {
-                BookModel book = new BookModel(
-                        rs.getString("isbn_number"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getString("publisher"),
-                        rs.getString("publication_year"),
-                        rs.getString("genre"),
-                        rs.getString("edition"),
-                        rs.getInt("available") == 1 ? true : false);
-                books.add(book);
-            }
+            return ps.executeQuery();
         } catch (Exception e) {
+            return null;
         }
-        return books;
     }
 
     public void updateBook(BookModel book) {
@@ -94,28 +82,17 @@ public class BookDAO {
         }
     }
 
-    public List<BookModel> getAllBooks() {
-        List<BookModel> books = new ArrayList<>();
-        String sql = "SELECT * FROM books";
+    public ResultSet searchBooks(int page, int pageSize) {
+        String sql = "SELECT * FROM books LIMIT ? OFFSET ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                BookModel book = new BookModel(
-                        rs.getString("isbn_number"),
-                        rs.getString("title"),
-                        rs.getString("author"),
-                        rs.getString("publisher"),
-                        rs.getString("publication_year"),
-                        rs.getString("genre"),
-                        rs.getString("edition"),
-                        rs.getInt("available") == 1 ? true : false);
-                books.add(book);
-            }
+        try {
+            Connection conn = DatabaseConfig.getLibraryConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pageSize);
+            ps.setInt(2, (page - 1) * pageSize);
+            return ps.executeQuery();
         } catch (Exception e) {
+            return null;
         }
-        return books;
     }
 }

@@ -1,8 +1,6 @@
 package com.biblioteca.atenea.models;
 
 import com.biblioteca.atenea.models.base.PersonModel;
-import com.biblioteca.atenea.models.base.PenaltyModel;
-import com.biblioteca.atenea.models.base.LoansModel;
 
 public class UserModel extends PersonModel {
 
@@ -10,8 +8,6 @@ public class UserModel extends PersonModel {
     private String email;
     private String address;
     private long phoneNumber;
-    private PenaltyModel penalties = new PenaltyModel();
-    private LoansModel loans = new LoansModel();
 
     public UserModel() {
         super();
@@ -58,21 +54,5 @@ public class UserModel extends PersonModel {
 
     public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public PenaltyModel getPenalties() {
-        return penalties;
-    }
-
-    public void setPenalty(PenaltyModel penalty) {
-        this.penalties = penalty;
-    }
-
-    public LoansModel getLoans() {
-        return loans;
-    }
-
-    public void setLoan(LoansModel loans) {
-        this.loans = loans;
     }
 }

@@ -5,8 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.config.DatabaseConfig;
-import com.biblioteca.atenea.models.base.PenaltyModel;
+import com.biblioteca.atenea.model.base.PenaltyModel;
+import com.biblioteca.atenea.util.DatabaseUtil;
 
 public class PenaltyDAO {
 
@@ -16,7 +16,7 @@ public class PenaltyDAO {
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                     """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, penalty.getUserId());
             ps.setDate(2, Date.valueOf(penalty.getStartDate()));
@@ -34,7 +34,7 @@ public class PenaltyDAO {
         String sql = "SELECT * FROM penalties WHERE user_id = ? LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, userId);
             ps.setInt(2, pageSize);
@@ -52,7 +52,7 @@ public class PenaltyDAO {
                 WHERE penalty_id = ?
                 """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, penalty.getUserId());
             ps.setDate(1, Date.valueOf(penalty.getStartDate()));
@@ -70,7 +70,7 @@ public class PenaltyDAO {
     public void deletePenalty(int penaltyId) {
         String sql = "DELETE FROM penalties WHERE penalty_id = ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, penaltyId);
             ps.executeUpdate();
@@ -82,7 +82,7 @@ public class PenaltyDAO {
         String sql = "SELECT * FROM penalties LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, pageSize);
             ps.setInt(2, (page - 1) * pageSize);

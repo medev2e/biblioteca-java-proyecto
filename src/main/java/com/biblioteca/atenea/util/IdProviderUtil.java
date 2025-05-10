@@ -1,4 +1,4 @@
-package com.biblioteca.atenea.utils;
+package com.biblioteca.atenea.util;
 
 import java.util.UUID;
 

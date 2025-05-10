@@ -1,6 +1,6 @@
-package com.biblioteca.atenea.models.base;
+package com.biblioteca.atenea.model.base;
 
-import com.biblioteca.atenea.utils.IdProviderUtil;
+import com.biblioteca.atenea.util.IdProviderUtil;
 
 public class PersonModel {
     private String systemId;

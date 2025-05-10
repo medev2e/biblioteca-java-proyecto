@@ -1,6 +1,6 @@
-package com.biblioteca.atenea.models;
+package com.biblioteca.atenea.model;
 
-import com.biblioteca.atenea.models.base.PersonModel;
+import com.biblioteca.atenea.model.base.PersonModel;
 
 public class UserModel extends PersonModel {
 

@@ -5,8 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.config.DatabaseConfig;
-import com.biblioteca.atenea.models.base.LoanModel;
+import com.biblioteca.atenea.model.base.LoanModel;
+import com.biblioteca.atenea.util.DatabaseUtil;
 
 public class LoanDAO {
 
@@ -16,7 +16,7 @@ public class LoanDAO {
                 VALUES (?, ?, ?, ?)
                     """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, loan.getUserId());
             ps.setString(2, loan.getBookId());
@@ -31,7 +31,7 @@ public class LoanDAO {
         String sql = "SELECT * FROM loans WHERE user_id = ? LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, userId);
             ps.setInt(2, pageSize);
@@ -49,7 +49,7 @@ public class LoanDAO {
                 WHERE loan_id = ?
                 """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, loan.getUserId());
             ps.setString(2, loan.getBookId());
@@ -64,7 +64,7 @@ public class LoanDAO {
     public void deleteLoan(int loanId) {
         String sql = "DELETE FROM loans WHERE loan_id = ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, loanId);
             ps.executeUpdate();
@@ -76,7 +76,7 @@ public class LoanDAO {
         String sql = "SELECT * FROM loans LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, pageSize);
             ps.setInt(2, (page - 1) * pageSize);

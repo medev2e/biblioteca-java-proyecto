@@ -1,4 +1,4 @@
-package com.biblioteca.atenea.models.base;
+package com.biblioteca.atenea.model.base;
 
 public class BookModel {
 

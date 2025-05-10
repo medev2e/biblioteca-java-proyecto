@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.config.DatabaseConfig;
-import com.biblioteca.atenea.models.EmployeeModel;
-import com.biblioteca.atenea.utils.SecurityUtil;
+import com.biblioteca.atenea.model.EmployeeModel;
+import com.biblioteca.atenea.util.DatabaseUtil;
+import com.biblioteca.atenea.util.SecurityUtil;
 
 public class EmployeeDAO {
     public void insertEmployee(EmployeeModel employee) {
@@ -16,7 +16,7 @@ public class EmployeeDAO {
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                     """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, employee.getSystemId());
             ps.setString(2, employee.getName());
@@ -33,7 +33,7 @@ public class EmployeeDAO {
     public void verifyEmployee(String username, String password) {
         String sql = "SELECT * FROM employees WHERE username = ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
@@ -60,7 +60,7 @@ public class EmployeeDAO {
                 SET name = ?, middle_name = ?, last_name = ?, sur_name = ?, username = ?, password = ?
                 WHERE system_id = ?
                 """;
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, employee.getName());
             ps.setString(2, employee.getMiddleName());
@@ -76,7 +76,7 @@ public class EmployeeDAO {
 
     public void deleteEmployee(String systemId) {
         String sql = "DELETE FROM employees WHERE system_id = ?";
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, systemId);
             ps.executeUpdate();

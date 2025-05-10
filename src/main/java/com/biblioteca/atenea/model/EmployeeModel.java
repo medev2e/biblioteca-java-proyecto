@@ -1,7 +1,7 @@
-package com.biblioteca.atenea.models;
+package com.biblioteca.atenea.model;
 
-import com.biblioteca.atenea.models.base.PersonModel;
-import com.biblioteca.atenea.utils.SecurityUtil;
+import com.biblioteca.atenea.model.base.PersonModel;
+import com.biblioteca.atenea.util.SecurityUtil;
 
 public class EmployeeModel extends PersonModel {
 

@@ -1,16 +1,20 @@
-package com.biblioteca.atenea.config;
+package com.biblioteca.atenea.util;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-import java.nio.file.Files;
+public class DatabaseUtil {
 
-public class DatabaseConfig {
-    private static final String DB_DIRECTORY = "var/db/";
+    private static final String DB_DIRECTORY = "data";
     private static final String LIBRARY_DB = DB_DIRECTORY + "library_management.db";
+
+    public static Connection getLibraryConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:sqlite:" + LIBRARY_DB);
+    }
 
     private static void checkRouteExist() {
         try {
@@ -38,23 +42,13 @@ public class DatabaseConfig {
         }
     }
 
-    public static Connection getLibraryConnection() throws SQLException {
+    public static void initializeDatabase() {
+
         checkRouteExist();
         checkDatabaseExist();
-        return DriverManager.getConnection("jdbc:sqlite:" + LIBRARY_DB);
-    }
 
-    private static void createTable(String sql) {
-        try (Connection conn = getLibraryConnection();
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.executeUpdate();
-        } catch (Exception e) {
-        }
-    }
-
-    private static void createUsersTable() {
-        String sql = """
-                    CREATE TABLE IF NOT EXISTS users (
+        String createTables = """
+                CREATE TABLE IF NOT EXISTS users (
                         system_id TEXT PRIMARY KEY,
                         name TEXT NOT NULL,
                         middle_name TEXT,
@@ -65,13 +59,8 @@ public class DatabaseConfig {
                         address TEXT NOT NULL,
                         phone_number INTEGER UNIQUE NOT NULL
                     );
-                """;
-        createTable(sql);
-    }
 
-    private static void createEmployeesTable() {
-        String sql = """
-                    CREATE TABLE IF NOT EXISTS employees (
+                CREATE TABLE IF NOT EXISTS employees (
                         system_id TEXT PRIMARY KEY,
                         name TEXT NOT NULL,
                         middle_name TEXT,
@@ -80,13 +69,8 @@ public class DatabaseConfig {
                         username TEXT UNIQUE NOT NULL,
                         password TEXT NOT NULL
                     );
-                """;
-        createTable(sql);
-    }
 
-    private static void createBooksTable() {
-        String sql = """
-                    CREATE TABLE IF NOT EXISTS books (
+                CREATE TABLE IF NOT EXISTS books (
                         isbn_number TEXT PRIMARY KEY,
                         title TEXT NOT NULL,
                         author TEXT NOT NULL,
@@ -96,13 +80,8 @@ public class DatabaseConfig {
                         edition TEXT,
                         available NUMERIC NOT NULL
                     );
-                """;
-        createTable(sql);
-    }
 
-    private static void createLoansTable() {
-        String sql = """
-                    CREATE TABLE IF NOT EXISTS loans (
+                CREATE TABLE IF NOT EXISTS loans (
                         loan_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         user_id TEXT NOT NULL,
                         book_id TEXT NOT NULL,
@@ -111,13 +90,8 @@ public class DatabaseConfig {
                         FOREIGN KEY (user_id) REFERENCES users(system_id),
                         FOREIGN KEY (book_id) REFERENCES books(isbn_number)
                     );
-                """;
-        createTable(sql);
-    }
 
-    private static void createPenaltiesTable() {
-        String sql = """
-                    CREATE TABLE IF NOT EXISTS penalties (
+                CREATE TABLE IF NOT EXISTS penalties (
                         penalty_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         user_id TEXT NOT NULL,
                         start_date TEXT NOT NULL,
@@ -129,14 +103,11 @@ public class DatabaseConfig {
                         FOREIGN KEY (user_id) REFERENCES users(system_id)
                     );
                 """;
-        createTable(sql);
-    }
 
-    public static void createLibraryTable() {
-        createBooksTable();
-        createEmployeesTable();
-        createPenaltiesTable();
-        createUsersTable();
-        createLoansTable();
+        try (Connection conn = getLibraryConnection();
+                PreparedStatement ps = conn.prepareStatement(createTables)) {
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
     }
 }

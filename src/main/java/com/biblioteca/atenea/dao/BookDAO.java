@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.config.DatabaseConfig;
-import com.biblioteca.atenea.models.base.BookModel;
+import com.biblioteca.atenea.model.base.BookModel;
+import com.biblioteca.atenea.util.DatabaseUtil;
 
 public class BookDAO {
 
@@ -16,7 +16,7 @@ public class BookDAO {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, book.getIsbnNumber());
             ps.setString(2, book.getTitle());
@@ -35,7 +35,7 @@ public class BookDAO {
         String sql = "SELECT * FROM books WHERE title LIKE ? LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, "%" + title + "%");
@@ -56,7 +56,7 @@ public class BookDAO {
                 WHERE isbn_number = ?
                 """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, book.getTitle());
             ps.setString(2, book.getAuthor());
@@ -74,7 +74,7 @@ public class BookDAO {
     public void deleteBook(String isbnNumber) {
         String sql = "DELETE FROM books WHERE isbn_number = ?";
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, isbnNumber);
             ps.executeUpdate();
@@ -86,7 +86,7 @@ public class BookDAO {
         String sql = "SELECT * FROM books LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, pageSize);
             ps.setInt(2, (page - 1) * pageSize);

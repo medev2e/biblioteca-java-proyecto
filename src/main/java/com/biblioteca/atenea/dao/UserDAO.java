@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.config.DatabaseConfig;
-import com.biblioteca.atenea.models.UserModel;
+import com.biblioteca.atenea.model.UserModel;
+import com.biblioteca.atenea.util.DatabaseUtil;
 
 public class UserDAO {
 
@@ -16,7 +16,7 @@ public class UserDAO {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """;
 
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, user.getSystemId());
             ps.setString(2, user.getName());
@@ -36,7 +36,7 @@ public class UserDAO {
         String sql = "SELECT * FROM users WHERE name LIKE ? LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, "%" + name + "%");
@@ -55,7 +55,7 @@ public class UserDAO {
                 SET name = ?, middle_name = ?, last_name = ?, sur_name = ?, national_id = ?, email = ?, address = ?, phone_number = ?
                 WHERE system_id = ?
                 """;
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getMiddleName());
@@ -73,7 +73,7 @@ public class UserDAO {
 
     public void deleteUser(String systemId) {
         String sql = "DELETE FROM users WHERE system_id = ?";
-        try (Connection conn = DatabaseConfig.getLibraryConnection();
+        try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, systemId);
             ps.executeUpdate();
@@ -85,7 +85,7 @@ public class UserDAO {
         String sql = "SELECT * FROM users WHERE name LIKE ? OR national_id LIKE ? OR email LIKE ? LIMIT ? OFFSET ?";
 
         try {
-            Connection conn = DatabaseConfig.getLibraryConnection();
+            Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, "%" + searchTerm + "%");

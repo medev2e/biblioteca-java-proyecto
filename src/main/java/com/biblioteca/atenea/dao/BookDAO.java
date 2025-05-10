@@ -71,18 +71,18 @@ public class BookDAO {
         }
     }
 
-    public void deleteBook(String isbnNumber) {
-        String sql = "DELETE FROM books WHERE isbn_number = ?";
+    public void deleteBook(String bookId) {
+        String sql = "DELETE FROM books WHERE book_id = ?";
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, isbnNumber);
+            ps.setString(1, bookId);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
-    public ResultSet searchBooks(int page, int pageSize) {
+    public ResultSet allBooks(int page, int pageSize) {
         String sql = "SELECT * FROM books LIMIT ? OFFSET ?";
 
         try {

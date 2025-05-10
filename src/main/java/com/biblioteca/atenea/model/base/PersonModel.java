@@ -1,9 +1,6 @@
 package com.biblioteca.atenea.model.base;
 
-import com.biblioteca.atenea.util.IdProviderUtil;
-
 public class PersonModel {
-    private String systemId;
     private String name;
     private String middleName;
     private String lastName;
@@ -13,15 +10,10 @@ public class PersonModel {
     }
 
     public PersonModel(String name, String middleName, String lastName, String surName) {
-        this.systemId = IdProviderUtil.generate();
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;
         this.surName = surName;
-    }
-
-    public String getSystemId() {
-        return systemId;
     }
 
     public String getName() {

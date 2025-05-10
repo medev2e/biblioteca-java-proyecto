@@ -12,19 +12,18 @@ public class EmployeeDAO {
     public void insertEmployee(EmployeeModel employee) {
 
         String sql = """
-                INSERT INTO employees (system_id, name, middle_name, last_name, sur_name, username, password)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO employees (username, name, middle_name, last_name, sur_name, password)
+                VALUES (?, ?, ?, ?, ?, ?)
                     """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, employee.getSystemId());
+            ps.setString(1, employee.getUsername());
             ps.setString(2, employee.getName());
             ps.setString(3, employee.getMiddleName());
             ps.setString(4, employee.getLastName());
             ps.setString(5, employee.getSurName());
-            ps.setString(6, employee.getUsername());
-            ps.setString(7, employee.getPassword());
+            ps.setString(6, employee.getPassword());
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -57,28 +56,29 @@ public class EmployeeDAO {
     public void updateEmployee(EmployeeModel employee) {
         String sql = """
                 UPDATE employees
-                SET name = ?, middle_name = ?, last_name = ?, sur_name = ?, username = ?, password = ?
-                WHERE system_id = ?
+                SET name = ?, middle_name = ?, last_name = ?, sur_name = ?, password = ?
+                WHERE username = ?
                 """;
+
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, employee.getName());
             ps.setString(2, employee.getMiddleName());
             ps.setString(3, employee.getLastName());
             ps.setString(4, employee.getSurName());
-            ps.setString(5, employee.getUsername());
-            ps.setString(6, employee.getPassword());
-            ps.setString(7, employee.getSystemId());
+            ps.setString(5, employee.getPassword());
+            ps.setString(6, employee.getUsername());
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
-    public void deleteEmployee(String systemId) {
-        String sql = "DELETE FROM employees WHERE system_id = ?";
+    public void deleteEmployee(String username) {
+        String sql = "DELETE FROM employees WHERE username = ?";
+
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, systemId);
+            ps.setString(1, username);
             ps.executeUpdate();
         } catch (Exception e) {
         }

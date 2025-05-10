@@ -12,14 +12,14 @@ public class LoanDAO {
 
     public void insertLoan(LoanModel loan) {
         String sql = """
-                INSERT INTO loans (user_id, book_id, loan_date, return_date)
+                INSERT INTO loans (national_id, serial_id, loan_date, return_date)
                 VALUES (?, ?, ?, ?)
                     """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, loan.getUserId());
-            ps.setString(2, loan.getBookId());
+            ps.setString(1, loan.getNationalId());
+            ps.setString(2, loan.getSerialId());
             ps.setDate(3, Date.valueOf(loan.getLoanDate()));
             ps.setDate(4, Date.valueOf(loan.getReturnDate()));
             ps.executeUpdate();
@@ -27,13 +27,13 @@ public class LoanDAO {
         }
     }
 
-    public ResultSet searchLoansByUser(String userId, int page, int pageSize) {
-        String sql = "SELECT * FROM loans WHERE user_id = ? LIMIT ? OFFSET ?";
+    public ResultSet searchLoansByUser(String natinalId, int page, int pageSize) {
+        String sql = "SELECT * FROM loans WHERE natinal_id = ? LIMIT ? OFFSET ?";
 
         try {
             Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, userId);
+            ps.setString(1, natinalId);
             ps.setInt(2, pageSize);
             ps.setInt(3, (page - 1) * pageSize);
             return ps.executeQuery();
@@ -45,14 +45,14 @@ public class LoanDAO {
     public void updateLoan(int loanId, LoanModel loan) {
         String sql = """
                 UPDATE loans
-                SET user_id = ?, book_id = ?, loan_date = ?, return_date = ?
+                SET national_id = ?, book_id = ?, loan_date = ?, return_date = ?
                 WHERE loan_id = ?
                 """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, loan.getUserId());
-            ps.setString(2, loan.getBookId());
+            ps.setString(1, loan.getNationalId());
+            ps.setString(2, loan.getSerialId());
             ps.setDate(3, Date.valueOf(loan.getLoanDate()));
             ps.setDate(4, Date.valueOf(loan.getReturnDate()));
             ps.setInt(8, loanId);
@@ -72,7 +72,7 @@ public class LoanDAO {
         }
     }
 
-    public ResultSet searchLoans(int page, int pageSize) {
+    public ResultSet allLoans(int page, int pageSize) {
         String sql = "SELECT * FROM loans LIMIT ? OFFSET ?";
 
         try {

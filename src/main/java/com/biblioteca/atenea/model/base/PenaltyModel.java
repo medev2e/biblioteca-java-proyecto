@@ -3,7 +3,7 @@ package com.biblioteca.atenea.model.base;
 import java.time.LocalDate;
 
 public class PenaltyModel {
-    private String userId;
+    private String nationalId;
     private LocalDate startDate;
     private LocalDate endDate;
     private String reason;
@@ -14,10 +14,10 @@ public class PenaltyModel {
     public PenaltyModel() {
     }
 
-    public PenaltyModel(String userId, LocalDate startDate, LocalDate endDate, String reason,
+    public PenaltyModel(String nationalId, LocalDate startDate, LocalDate endDate, String reason,
             String additionalNotes,
             double penaltyAmount, boolean isPaid) {
-        this.userId = userId;
+        this.nationalId = nationalId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.reason = reason;
@@ -26,12 +26,12 @@ public class PenaltyModel {
         this.isPaid = isPaid;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getNationalId() {
+        return nationalId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
     }
 
     public LocalDate getStartDate() {

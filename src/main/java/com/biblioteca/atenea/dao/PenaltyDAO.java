@@ -12,13 +12,13 @@ public class PenaltyDAO {
 
     public void insertPenalty(PenaltyModel penalty) {
         String sql = """
-                INSERT INTO penalties (user_id, start_date, end_date, reason, additional_notes, penalty_amount, is_paid)
+                INSERT INTO penalties (national_id, start_date, end_date, reason, additional_notes, penalty_amount, is_paid)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                     """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, penalty.getUserId());
+            ps.setString(1, penalty.getNationalId());
             ps.setDate(2, Date.valueOf(penalty.getStartDate()));
             ps.setDate(3, Date.valueOf(penalty.getEndDate()));
             ps.setString(4, penalty.getReason());
@@ -30,13 +30,13 @@ public class PenaltyDAO {
         }
     }
 
-    public ResultSet searchPenaltiesByUser(String userId, int page, int pageSize) {
-        String sql = "SELECT * FROM penalties WHERE user_id = ? LIMIT ? OFFSET ?";
+    public ResultSet searchPenaltiesByUser(String nationalId, int page, int pageSize) {
+        String sql = "SELECT * FROM penalties WHERE national_id = ? LIMIT ? OFFSET ?";
 
         try {
             Connection conn = DatabaseUtil.getLibraryConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, userId);
+            ps.setString(1, nationalId);
             ps.setInt(2, pageSize);
             ps.setInt(3, (page - 1) * pageSize);
             return ps.executeQuery();
@@ -48,13 +48,13 @@ public class PenaltyDAO {
     public void updatePenalty(int penaltyId, PenaltyModel penalty) {
         String sql = """
                 UPDATE penalties
-                SET user_id = ?, start_date = ?, end_date = ?, reason = ?, additional_notes = ?, penalty_amount = ?, is_paid = ?
+                SET national_id = ?, start_date = ?, end_date = ?, reason = ?, additional_notes = ?, penalty_amount = ?, is_paid = ?
                 WHERE penalty_id = ?
                 """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, penalty.getUserId());
+            ps.setString(1, penalty.getNationalId());
             ps.setDate(1, Date.valueOf(penalty.getStartDate()));
             ps.setDate(2, Date.valueOf(penalty.getEndDate()));
             ps.setString(3, penalty.getReason());

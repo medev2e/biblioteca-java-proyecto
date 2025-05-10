@@ -3,35 +3,35 @@ package com.biblioteca.atenea.model.base;
 import java.time.LocalDate;
 
 public class LoanModel {
-    private String userId;
-    private String bookId;
+    private String nationalId;
+    private String serialId;
     private LocalDate loanDate;
     private LocalDate returnDate;
 
     public LoanModel() {
     }
 
-    public LoanModel(String userId, String bookId, LocalDate loanDate, LocalDate returnDate) {
-        this.userId = userId;
-        this.bookId = bookId;
+    public LoanModel(String nationalId, String serialId, LocalDate loanDate, LocalDate returnDate) {
+        this.nationalId = nationalId;
+        this.serialId = serialId;
         this.loanDate = loanDate;
         this.returnDate = returnDate;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getNationalId() {
+        return nationalId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
     }
 
-    public String getBookId() {
-        return bookId;
+    public String getSerialId() {
+        return serialId;
     }
 
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
+    public void getSerialId(String serialId) {
+        this.serialId = serialId;
     }
 
     public LocalDate getLoanDate() {

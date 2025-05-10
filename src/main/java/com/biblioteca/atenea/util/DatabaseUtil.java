@@ -49,29 +49,30 @@ public class DatabaseUtil {
 
         String createTables = """
                 CREATE TABLE IF NOT EXISTS users (
-                        system_id TEXT PRIMARY KEY,
+                        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        national_id TEXT UNIQUE NOT NULL,
                         name TEXT NOT NULL,
                         middle_name TEXT,
                         last_name TEXT NOT NULL,
                         sur_name TEXT NOT NULL,
-                        national_id TEXT UNIQUE NOT NULL,
                         email TEXT UNIQUE NOT NULL,
                         address TEXT NOT NULL,
                         phone_number INTEGER UNIQUE NOT NULL
                     );
 
                 CREATE TABLE IF NOT EXISTS employees (
-                        system_id TEXT PRIMARY KEY,
+                        employe_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        username TEXT UNIQUE NOT NULL,
                         name TEXT NOT NULL,
                         middle_name TEXT,
                         last_name TEXT NOT NULL,
                         sur_name TEXT NOT NULL,
-                        username TEXT UNIQUE NOT NULL,
                         password TEXT NOT NULL
                     );
 
                 CREATE TABLE IF NOT EXISTS books (
-                        isbn_number TEXT PRIMARY KEY,
+                        book_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        isbn_number TEXT NOT NULL,
                         title TEXT NOT NULL,
                         author TEXT NOT NULL,
                         publisher TEXT,
@@ -83,24 +84,24 @@ public class DatabaseUtil {
 
                 CREATE TABLE IF NOT EXISTS loans (
                         loan_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        user_id TEXT NOT NULL,
-                        book_id TEXT NOT NULL,
+                        national_id TEXT NOT NULL,
+                        serial_id TEXT NOT NULL,
                         loan_date TEXT NOT NULL,
                         return_date TEXT,
-                        FOREIGN KEY (user_id) REFERENCES users(system_id),
-                        FOREIGN KEY (book_id) REFERENCES books(isbn_number)
+                        FOREIGN KEY (national_id) REFERENCES users(national_id),
+                        FOREIGN KEY (book_id) REFERENCES books(book_id)
                     );
 
                 CREATE TABLE IF NOT EXISTS penalties (
                         penalty_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        user_id TEXT NOT NULL,
+                        national_id TEXT NOT NULL,
                         start_date TEXT NOT NULL,
                         end_date TEXT NOT NULL,
                         reason TEXT NOT NULL,
                         additional_note TEXT,
                         penalty_amount NUMERIC NOT NULL,
                         is_paid NUMERIC NOT NULL,
-                        FOREIGN KEY (user_id) REFERENCES users(system_id)
+                        FOREIGN KEY (national_id) REFERENCES users(national_id)
                     );
                 """;
 

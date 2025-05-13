@@ -1,12 +1,12 @@
-package com.biblioteca.atenea.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.model.base.LoanModel;
-import com.biblioteca.atenea.util.DatabaseUtil;
+import model.base.LoanModel;
+import util.DatabaseUtil;
 
 public class LoanDAO {
 

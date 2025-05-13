@@ -1,12 +1,12 @@
-package com.biblioteca.atenea.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.model.base.PenaltyModel;
-import com.biblioteca.atenea.util.DatabaseUtil;
+import model.base.PenaltyModel;
+import util.DatabaseUtil;
 
 public class PenaltyDAO {
 

@@ -1,4 +1,4 @@
-package com.biblioteca.atenea.model.base;
+package model.base;
 
 import java.time.LocalDate;
 

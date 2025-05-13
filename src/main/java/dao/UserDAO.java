@@ -1,11 +1,11 @@
-package com.biblioteca.atenea.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.model.UserModel;
-import com.biblioteca.atenea.util.DatabaseUtil;
+import model.UserModel;
+import util.DatabaseUtil;
 
 public class UserDAO {
 

@@ -1,4 +1,4 @@
-package com.biblioteca.atenea.util;
+package util;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class DatabaseUtil {
 
-    private static final String DB_DIRECTORY = "data";
+    private static final String DB_DIRECTORY = "data/";
     private static final String LIBRARY_DB = DB_DIRECTORY + "library_management.db";
 
     public static Connection getLibraryConnection() throws SQLException {

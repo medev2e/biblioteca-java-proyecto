@@ -1,4 +1,4 @@
-package com.biblioteca.atenea.model.base;
+package model.base;
 
 public class PersonModel {
     private String name;

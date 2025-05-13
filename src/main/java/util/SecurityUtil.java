@@ -1,4 +1,4 @@
-package com.biblioteca.atenea.util;
+package util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

@@ -1,12 +1,12 @@
-package com.biblioteca.atenea.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.biblioteca.atenea.model.EmployeeModel;
-import com.biblioteca.atenea.util.DatabaseUtil;
-import com.biblioteca.atenea.util.SecurityUtil;
+import model.EmployeeModel;
+import util.DatabaseUtil;
+import util.SecurityUtil;
 
 public class EmployeeDAO {
     public void insertEmployee(EmployeeModel employee) {

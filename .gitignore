@@ -18,7 +18,7 @@ toadd.txt
 *.nar
 *.ear
 
-var/db
+data/
 
 .DS_Store
 Thumbs.db

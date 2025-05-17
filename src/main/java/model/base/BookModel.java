@@ -6,7 +6,6 @@ public class BookModel {
     private String title;
     private String author;
     private String publisher;
-    private String publicationYear;
     private String genre;
     private String edition;
     private boolean available;
@@ -15,14 +14,13 @@ public class BookModel {
     }
 
     public BookModel(
-            String isbnNumber, String title, String author, String publisher, String publicationYear,
+            String isbnNumber, String title, String author, String publisher,
             String genre,
             String edition, boolean available) {
         this.isbnNumber = isbnNumber;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
-        this.publicationYear = publicationYear;
         this.genre = genre;
         this.edition = edition;
         this.available = available;
@@ -58,14 +56,6 @@ public class BookModel {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
-    }
-
-    public String getPublicationYear() {
-        return publicationYear;
-    }
-
-    public void setPublicationYear(String publicationYear) {
-        this.publicationYear = publicationYear;
     }
 
     public String getGenre() {

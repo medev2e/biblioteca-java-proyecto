@@ -4,16 +4,16 @@ import java.time.LocalDate;
 
 public class LoanModel {
     private String nationalId;
-    private String serialId;
+    private String isbnNumber;
     private LocalDate loanDate;
     private LocalDate returnDate;
 
     public LoanModel() {
     }
 
-    public LoanModel(String nationalId, String serialId, LocalDate loanDate, LocalDate returnDate) {
+    public LoanModel(String nationalId, String isbnNumber, LocalDate loanDate, LocalDate returnDate) {
         this.nationalId = nationalId;
-        this.serialId = serialId;
+        this.isbnNumber = isbnNumber;
         this.loanDate = loanDate;
         this.returnDate = returnDate;
     }
@@ -26,12 +26,12 @@ public class LoanModel {
         this.nationalId = nationalId;
     }
 
-    public String getSerialId() {
-        return serialId;
+    public String getIsbnNumber() {
+        return isbnNumber;
     }
 
-    public void getSerialId(String serialId) {
-        this.serialId = serialId;
+    public void getIsbnNumber(String isbnNumber) {
+        this.isbnNumber = isbnNumber;
     }
 
     public LocalDate getLoanDate() {

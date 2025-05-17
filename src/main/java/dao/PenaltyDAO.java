@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -12,19 +11,17 @@ public class PenaltyDAO {
 
     public void insertPenalty(PenaltyModel penalty) {
         String sql = """
-                INSERT INTO penalties (national_id, start_date, end_date, reason, additional_notes, penalty_amount, is_paid)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO penalties (national_id, reason, additional_notes, penalty_amount, is_paid)
+                VALUES (?, ?, ?, ?, ?)
                     """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, penalty.getNationalId());
-            ps.setDate(2, Date.valueOf(penalty.getStartDate()));
-            ps.setDate(3, Date.valueOf(penalty.getEndDate()));
-            ps.setString(4, penalty.getReason());
-            ps.setString(5, penalty.getAdditionalNotes());
-            ps.setDouble(6, penalty.getPenaltyAmount());
-            ps.setInt(7, penalty.getIsPaid() ? 1 : 0);
+            ps.setString(2, penalty.getReason());
+            ps.setString(3, penalty.getAdditionalNotes());
+            ps.setDouble(4, penalty.getPenaltyAmount());
+            ps.setInt(5, penalty.getIsPaid() ? 1 : 0);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -48,20 +45,18 @@ public class PenaltyDAO {
     public void updatePenalty(int penaltyId, PenaltyModel penalty) {
         String sql = """
                 UPDATE penalties
-                SET national_id = ?, start_date = ?, end_date = ?, reason = ?, additional_notes = ?, penalty_amount = ?, is_paid = ?
+                SET national_id = ?, reason = ?, additional_notes = ?, penalty_amount = ?, is_paid = ?
                 WHERE penalty_id = ?
                 """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, penalty.getNationalId());
-            ps.setDate(1, Date.valueOf(penalty.getStartDate()));
-            ps.setDate(2, Date.valueOf(penalty.getEndDate()));
-            ps.setString(3, penalty.getReason());
-            ps.setString(4, penalty.getAdditionalNotes());
-            ps.setDouble(5, penalty.getPenaltyAmount());
-            ps.setInt(6, penalty.getIsPaid() ? 1 : 0);
-            ps.setInt(7, penaltyId);
+            ps.setString(2, penalty.getReason());
+            ps.setString(3, penalty.getAdditionalNotes());
+            ps.setDouble(4, penalty.getPenaltyAmount());
+            ps.setInt(5, penalty.getIsPaid() ? 1 : 0);
+            ps.setInt(6, penaltyId);
             ps.executeUpdate();
         } catch (Exception e) {
         }

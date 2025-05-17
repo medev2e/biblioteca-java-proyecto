@@ -76,7 +76,6 @@ public class DatabaseUtil {
                         title TEXT NOT NULL,
                         author TEXT NOT NULL,
                         publisher TEXT,
-                        publication_year TEXT,
                         genre TEXT,
                         edition TEXT,
                         available NUMERIC NOT NULL
@@ -85,18 +84,16 @@ public class DatabaseUtil {
                 CREATE TABLE IF NOT EXISTS loans (
                         loan_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         national_id TEXT NOT NULL,
-                        serial_id TEXT NOT NULL,
+                        isbn_number TEXT NOT NULL,
                         loan_date TEXT NOT NULL,
-                        return_date TEXT,
+                        return_date TEXT NOT NULL,
                         FOREIGN KEY (national_id) REFERENCES users(national_id),
-                        FOREIGN KEY (book_id) REFERENCES books(book_id)
+                        FOREIGN KEY (isbn_number) REFERENCES books(isbn_number)
                     );
 
                 CREATE TABLE IF NOT EXISTS penalties (
                         penalty_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         national_id TEXT NOT NULL,
-                        start_date TEXT NOT NULL,
-                        end_date TEXT NOT NULL,
                         reason TEXT NOT NULL,
                         additional_note TEXT,
                         penalty_amount NUMERIC NOT NULL,

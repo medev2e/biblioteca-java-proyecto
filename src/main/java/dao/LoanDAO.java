@@ -12,14 +12,14 @@ public class LoanDAO {
 
     public void insertLoan(LoanModel loan) {
         String sql = """
-                INSERT INTO loans (national_id, serial_id, loan_date, return_date)
+                INSERT INTO loans (national_id, isbn_number, loan_date, return_date)
                 VALUES (?, ?, ?, ?)
                     """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, loan.getNationalId());
-            ps.setString(2, loan.getSerialId());
+            ps.setString(2, loan.getIsbnNumber());
             ps.setDate(3, Date.valueOf(loan.getLoanDate()));
             ps.setDate(4, Date.valueOf(loan.getReturnDate()));
             ps.executeUpdate();
@@ -45,14 +45,14 @@ public class LoanDAO {
     public void updateLoan(int loanId, LoanModel loan) {
         String sql = """
                 UPDATE loans
-                SET national_id = ?, book_id = ?, loan_date = ?, return_date = ?
+                SET national_id = ?, isbn_number = ?, loan_date = ?, return_date = ?
                 WHERE loan_id = ?
                 """;
 
         try (Connection conn = DatabaseUtil.getLibraryConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, loan.getNationalId());
-            ps.setString(2, loan.getSerialId());
+            ps.setString(2, loan.getIsbnNumber());
             ps.setDate(3, Date.valueOf(loan.getLoanDate()));
             ps.setDate(4, Date.valueOf(loan.getReturnDate()));
             ps.setInt(8, loanId);
